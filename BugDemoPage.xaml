@@ -4,7 +4,6 @@
              x:Class="MauiApp1.BugDemoPage"
              BackgroundColor="Transparent">
     
-    <!-- This matches the actual BadgeOverlayPage structure -->
     <Grid SafeAreaEdges="None" RowDefinitions="*" ColumnDefinitions="*">
         
         <!-- Layer 1: Backdrop (fills entire screen) -->
