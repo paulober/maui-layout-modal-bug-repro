@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.BugDemoPage"
+             BackgroundColor="Transparent">
+    
+    <!-- This matches the actual BadgeOverlayPage structure -->
+    <Grid SafeAreaEdges="None" RowDefinitions="*" ColumnDefinitions="*">
+        
+        <!-- Layer 1: Backdrop (fills entire screen) -->
+        <Grid SafeAreaEdges="None" 
+              x:Name="BackdropLayer" 
+              Grid.Row="0" 
+              Grid.Column="0">
+            <BoxView BackgroundColor="Black" Opacity="0.7" />
+            
+            <Label Text="Black backdrop - should fill entire screen"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   Margin="0,50,0,0"/>
+        </Grid>
+        
+        <!-- Layer 2: Card Layer with InputTransparent -->
+        <Grid x:Name="CardLayer" 
+              SafeAreaEdges="None"
+              InputTransparent="True"
+              Grid.Row="0" 
+              Grid.Column="0"
+              BackgroundColor="Aqua">
+            
+            <Label Text="Aqua overlay - should also fill entire screen"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+                   
+            <Label Text="BUG: On Android, aqua doesn't fill screen on first paint"
+                   TextColor="Red"
+                   FontAttributes="Bold"
+                   FontSize="12"
+                   HorizontalOptions="Center"
+                   VerticalOptions="End"
+                   Margin="0,0,0,50"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>

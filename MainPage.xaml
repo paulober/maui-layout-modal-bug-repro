@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage"
+             BackgroundColor="White">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+        
+        <Label Text="MAUI Grid InputTransparent Layout Bug"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center"/>
+               
+        <Button Text="Open Modal Page Bug Demo"
+                Clicked="OnOpenModalClicked"
+                BackgroundColor="Purple"
+                TextColor="White"
+                Margin="0,0,0,20"/>
+        
+        <Label Text="Bug: On Android, InputTransparent='True' on a Grid prevents it from filling the full available space when it's overlapped with another Grid."
+               TextColor="Red"
+               FontSize="14"/>
+        
+        <!-- Test Case 1: WITHOUT InputTransparent (WORKS) -->
+        <Label Text="Test 1: WITHOUT InputTransparent (Should see full green screen)"
+               FontSize="16"
+               FontAttributes="Bold"
+               Margin="0,20,0,0"/>
+        
+        <Grid HeightRequest="200" RowDefinitions="*" ColumnDefinitions="*">
+            <!-- Layer 1: Black backdrop -->
+            <Grid SafeAreaEdges="None" 
+                  Grid.Row="0" 
+                  Grid.Column="0"
+                  BackgroundColor="Black"/>
+            
+            <!-- Layer 2: Green overlay WITHOUT InputTransparent -->
+            <Grid SafeAreaEdges="None"
+                  Grid.Row="0" 
+                  Grid.Column="0"
+                  BackgroundColor="Green">
+                <Label Text="✓ WORKS: Full size green overlay"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </Grid>
+        
+        <!-- Test Case 2: WITH InputTransparent="True" (BROKEN ON ANDROID) -->
+        <Label Text="Test 2: WITH InputTransparent='True' (Android bug: green doesn't fill)"
+               FontSize="16"
+               FontAttributes="Bold"
+               Margin="0,20,0,0"/>
+        
+        <Grid HeightRequest="200" RowDefinitions="*" ColumnDefinitions="*">
+            <!-- Layer 1: Black backdrop -->
+            <Grid SafeAreaEdges="None" 
+                  Grid.Row="0" 
+                  Grid.Column="0"
+                  BackgroundColor="Black"/>
+            
+            <!-- Layer 2: Green overlay WITH InputTransparent="True" -->
+            <Grid SafeAreaEdges="None"
+                  InputTransparent="True"
+                  Grid.Row="0" 
+                  Grid.Column="0"
+                  BackgroundColor="Green">
+                <Label Text="✗ BUG: Green should fill entire black area"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Grid>
+        </Grid>
+        
+        <Label Text="Expected: Both green overlays should completely cover black background"
+               FontSize="12"
+               TextColor="Gray"
+               Margin="0,20,0,0"/>
+        
+        <Label Text="Actual on Android: Test 2 shows black on bottom and right edges"
+               FontSize="12"
+               TextColor="Red"/>
+               
+        <Label Text="iOS: Both tests work correctly"
+               FontSize="12"
+               TextColor="Green"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
